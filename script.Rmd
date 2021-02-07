@@ -1,0 +1,38 @@
+---
+title: "AITA Text Analysis"
+output: 
+    html_document:
+      code_download: TRUE
+      toc: TRUE
+      toc_float:
+        collapsed: FALSE
+      toc_depth: 3
+      code_folding: hide
+---
+
+```{r include=F}
+knitr::opts_chunk$set(echo=T, tidy=T, cache=F, warning=F, message=F)
+options(scipen = 10, digits = 4)
+```
+
+
+```{r results='hide'}
+library(here); library(rio); library(tidyverse); library(tidytext); library(magrittr)
+```
+
+
+```{r}
+df <- import(here("results", "LIWC2015 Results (aita_clean).csv")) %>% 
+  janitor::clean_names()
+```
+
+## Data wrangling
+```{r}
+# Assign the correct names of the variables that LIWC has changed.
+df %<>% 
+  rename(id = source_a, timestamp = source_b, title = source_c, text = source_d, edited = source_e, verdict = source_f, score = source_g,
+         n_comment = source_h, is_asshole = source_i)
+
+
+```
+
